@@ -57,14 +57,12 @@ class BoardWidget extends StatelessWidget {
             ),
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
-              child: isEmpty
-                  ? const SizedBox.shrink()
-                  : Icon(
-                      player.iconData,
-                      key: ValueKey(player),
-                      size: 60,
-                      color: player.color,
-                    ),
+              child: Icon(
+                player.iconData,
+                key: ValueKey(player),
+                size: isEmpty ? 10 : 60,
+                color: player.color,
+              ),
             ),
           ),
         );

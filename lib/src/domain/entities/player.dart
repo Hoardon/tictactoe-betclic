@@ -29,7 +29,7 @@ extension PlayerProperties on Player {
   IconData get iconData {
     switch (this) {
       case Player.none:
-        return Icons.question_mark_outlined;
+        return Icons.circle;
       case Player.X:
         return Icons.close;
       case Player.O:
