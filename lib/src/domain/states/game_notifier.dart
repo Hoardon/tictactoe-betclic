@@ -2,6 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tictactoebetclic/src/domain/ai/ai_strategy_provider.dart';
 import 'package:tictactoebetclic/src/domain/entities/game_state.dart';
 import 'package:tictactoebetclic/src/domain/entities/player.dart';
+import 'package:tictactoebetclic/src/services/game/game_rules_provider.dart';
 
 part 'game_notifier.g.dart';
 
@@ -43,52 +44,60 @@ class Game extends _$Game {
     }
   }
 
-  /// A unified, private method to apply a move and evaluate the board.
+  /// Single and unified method to process any move (human or AI).
   void _performMove(int index) {
-    final updatedBoard = List<Player>.from(state.board)
-      ..[index] = state.currentPlayer;
+    final rules = ref.read(gameRulesProvider);
 
-    state = state.copyWith(board: updatedBoard);
-    _evaluateBoard();
+    state = rules.processMove(state, index);
   }
 
-  /// Evaluates the board to determine if the game has ended.
-  void _evaluateBoard() {
-    const winningPatterns = [
-      [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
-      [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
-      [0, 4, 8], [2, 4, 6], // Diagonals
-    ];
-
-    for (final line in winningPatterns) {
-      final pos1 = state.board[line[0]];
-      final pos2 = state.board[line[1]];
-      final pos3 = state.board[line[2]];
-
-      if (pos1 != Player.none && pos1 == pos2 && pos1 == pos3) {
-        // Winner found.
-        state = state.copyWith(isGameOver: true, winner: pos1);
-        return; // The game is over.
-      }
-    }
-
-    if (!state.board.contains(Player.none)) {
-      // It's a draw (no more moves possible).
-      state = state.copyWith(isGameOver: true);
-      return; // The game is over.
-    }
-
-    // Otherwise, switch player and continue.
-    _togglePlayer();
-  }
-
-  void _togglePlayer() {
-    final next = state.currentPlayer == Player.X ? Player.O : Player.X;
-    state = state.copyWith(currentPlayer: next);
-  }
-
-  // A public method to reset the game to its initial state.
+  /// A public method to reset the game to its initial state.
   void resetGame() {
     state = const GameState();
   }
+
+  // /// A unified, private method to apply a move and evaluate the board.
+  // void _performMove(int index) {
+  //   final updatedBoard = List<Player>.from(state.board)
+  //     ..[index] = state.currentPlayer;
+  //
+  //   state = state.copyWith(board: updatedBoard);
+  //   _evaluateBoard();
+  // }
+
+  // /// Evaluates the board to determine if the game has ended.
+  // void _evaluateBoard() {
+  //   const winningPatterns = [
+  //     [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+  //     [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+  //     [0, 4, 8], [2, 4, 6], // Diagonals
+  //   ];
+  //
+  //   for (final line in winningPatterns) {
+  //     final pos1 = state.board[line[0]];
+  //     final pos2 = state.board[line[1]];
+  //     final pos3 = state.board[line[2]];
+  //
+  //     if (pos1 != Player.none && pos1 == pos2 && pos1 == pos3) {
+  //       // Winner found.
+  //       state = state.copyWith(isGameOver: true, winner: pos1);
+  //       return; // The game is over.
+  //     }
+  //   }
+  //
+  //   if (!state.board.contains(Player.none)) {
+  //     // It's a draw (no more moves possible).
+  //     state = state.copyWith(isGameOver: true);
+  //     return; // The game is over.
+  //   }
+  //
+  //   // Otherwise, switch player and continue.
+  //   _togglePlayer();
+  // }
+  //
+  // void _togglePlayer() {
+  //   final next = state.currentPlayer == Player.X ? Player.O : Player.X;
+  //   state = state.copyWith(currentPlayer: next);
+  // }
+  //
 }
