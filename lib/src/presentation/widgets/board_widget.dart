@@ -59,7 +59,7 @@ class BoardWidget extends StatelessWidget {
               duration: const Duration(milliseconds: 300),
               child: Icon(
                 player.iconData,
-                key: ValueKey(player),
+                key: ValueKey('icon_${player.name}_$index'),
                 size: isEmpty ? 10 : 60,
                 color: player.color,
               ),
