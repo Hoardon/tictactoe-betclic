@@ -55,9 +55,8 @@ void main() {
     });
 
     test('copyWith should work for a single property', () {
-      const initial_state = GameState();
-
-      final updatedState = initial_state.copyWith(isGameOver: true);
+      const initialState = GameState();
+      final updatedState = initialState.copyWith(isGameOver: true);
 
       expect(updatedState.isGameOver, isTrue);
       expect(updatedState.board, equals(List.filled(9, Player.none)));
