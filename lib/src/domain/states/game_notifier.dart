@@ -59,6 +59,14 @@ class Game extends _$Game {
 
   // A public method to reset the game to its initial state.
   void resetGame() {
+    state = const GameState();
+  }
+
+  // A public method to reset the game.
+  // Previous loser player start the game.
+  // If game is not over, do nothing.
+  void playAgain() {
+    if (!state.isGameOver) return;
     state = state.currentPlayer == Player.X
         ? const GameState(currentPlayer: Player.O)
         : const GameState(currentPlayer: Player.X);
