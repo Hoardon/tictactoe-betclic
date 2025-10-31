@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tictactoebetclic/src/core/theme/dark_theme.dart';
 import 'package:tictactoebetclic/src/core/theme/light_theme.dart';
 import 'package:tictactoebetclic/src/core/theme/theme_controller.dart';
-import 'package:tictactoebetclic/src/presentation/pages/initialization_page.dart';
+import 'package:tictactoebetclic/src/presentation/pages/home_page.dart';
 
 class TicTacToeApp extends ConsumerWidget {
   const TicTacToeApp({super.key});
@@ -17,7 +17,7 @@ class TicTacToeApp extends ConsumerWidget {
 
     return MaterialApp(
       title: 'TicTacToe Betclic',
-      home: const InitializationPage(),
+      home: const HomePage(),
       theme: themeData,
       darkTheme: themeData,
       themeMode: themeMode,
