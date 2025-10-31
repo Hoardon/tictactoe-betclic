@@ -5,18 +5,18 @@ import 'package:tictactoebetclic/src/domain/ai/random_ia.dart';
 
 part 'ai_strategy_provider.g.dart';
 
-enum AIStrategyEnum { random, minMax }
+enum AIStrategyEnum { easy, hard }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class SelectedAIStrategy extends _$SelectedAIStrategy {
   @override
-  AIStrategyEnum build() => AIStrategyEnum.random;
+  AIStrategyEnum build() => AIStrategyEnum.easy;
 
   @override
   set state(AIStrategyEnum value) => super.state = value;
 
   AIBase get aiStrategy => switch (state) {
-    AIStrategyEnum.random => ref.read(randomAIProvider),
-    AIStrategyEnum.minMax => ref.read(minMaxAIProvider),
+    AIStrategyEnum.easy => ref.read(randomAIProvider),
+    AIStrategyEnum.hard => ref.read(minMaxAIProvider),
   };
 }

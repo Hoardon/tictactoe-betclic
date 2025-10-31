@@ -6,7 +6,7 @@ import 'package:tictactoebetclic/src/services/game/game_rules_provider.dart';
 
 part 'game_notifier.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class Game extends _$Game {
   bool _isAiActive = false;
 
@@ -15,14 +15,27 @@ class Game extends _$Game {
     return const GameState();
   }
 
-  void setAiActive(bool isActive) {
+  void activateAI({required AIStrategyEnum strategy}) =>
+      _setAiActive(isActive: true, strategy: strategy);
+
+  void deactivateAI() => _setAiActive(isActive: false);
+
+  void _setAiActive({
+    required bool isActive,
+    AIStrategyEnum? strategy,
+  }) {
+    if (isActive) {
+      ref.read(selectedAIStrategyProvider.notifier).state = strategy!;
+    }
     _isAiActive = isActive;
     resetGame();
   }
 
   void makeMove(int index) {
     if (state.isGameOver || state.board[index] != Player.none) return;
-    if (_isAiActive && state.currentPlayer == Player.O) return; // Prevent human from moving for AI
+    if (_isAiActive && state.currentPlayer == Player.O) {
+      return; // Prevent human from moving for AI
+    }
 
     _performMove(index);
 
