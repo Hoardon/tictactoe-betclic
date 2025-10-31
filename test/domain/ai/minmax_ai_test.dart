@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tictactoebetclic/src/domain/ai/minmax_ia.dart';
+import 'package:tictactoebetclic/src/domain/ai/minmax_ai.dart';
 import 'package:tictactoebetclic/src/domain/entities/game_state.dart';
 import 'package:tictactoebetclic/src/domain/entities/player.dart';
 
