@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tictactoebetclic/src/domain/ai/ai_strategy_provider.dart';
+import 'package:tictactoebetclic/src/domain/entities/player.dart';
+import 'package:tictactoebetclic/src/domain/states/ai_game_state.dart';
 import 'package:tictactoebetclic/src/domain/states/game_notifier.dart';
+import 'package:tictactoebetclic/src/presentation/widgets/animated_gradient_background_widget.dart';
 import 'package:tictactoebetclic/src/presentation/widgets/board_widget.dart';
-import 'package:tictactoebetclic/src/presentation/widgets/brightness_button_widget.dart';
 
-class InitializationPage extends ConsumerWidget {
-  const InitializationPage({super.key});
+class GamePage extends ConsumerWidget {
+  const GamePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final gameState = ref.watch(gameProvider);
-
-    final headlineStyle = theme.textTheme.headlineMedium?.copyWith(
-      fontWeight: FontWeight.bold,
-    );
 
     final isOver = gameState.isGameOver;
     final winner = gameState.winner;
@@ -22,6 +21,7 @@ class InitializationPage extends ConsumerWidget {
     return Scaffold(
       body: Stack(
         children: [
+          const AnimatedGradientBackground(),
           Padding(
             padding: const EdgeInsets.fromLTRB(24, 96, 24, 24),
             child: Column(
@@ -34,8 +34,11 @@ class InitializationPage extends ConsumerWidget {
                         ? winner != null
                               ? '🎉 ${winner.name} wins!'
                               : '🤝 Draw!'
-                        : 'Turn: ${gameState.currentPlayer.name}',
-                    style: headlineStyle,
+                        : 'Turn of player ${gameState.currentPlayer.name}',
+                    style: theme.textTheme.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: gameState.currentPlayer.color,
+                    ),
                   ),
                 ),
                 BoardWidget(
@@ -74,7 +77,6 @@ class InitializationPage extends ConsumerWidget {
               ],
             ),
           ),
-          const Positioned(top: 36, right: 8, child: BrightnessButton()),
         ],
       ),
     );

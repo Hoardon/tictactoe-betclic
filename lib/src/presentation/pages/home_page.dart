@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tictactoebetclic/src/domain/ai/ai_strategy_provider.dart';
+import 'package:tictactoebetclic/src/domain/entities/player.dart';
+import 'package:tictactoebetclic/src/domain/states/game_notifier.dart';
 import 'package:tictactoebetclic/src/presentation/widgets/animated_gradient_background_widget.dart';
 import 'package:tictactoebetclic/src/presentation/widgets/brightness_button_widget.dart';
 import 'package:tictactoebetclic/src/presentation/widgets/call_to_action_button_widget.dart';
@@ -12,10 +16,7 @@ class HomePage extends StatelessWidget {
     return const Scaffold(
       body: Stack(
         children: [
-          // 1. Animated Gradient Background
           AnimatedGradientBackground(),
-
-          // 2. Main Content
           Center(
             child: SingleChildScrollView(
               padding: EdgeInsets.all(24.0),
@@ -26,8 +27,6 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-
-          // 3. Floating Brightness Button
           Positioned(top: 40, right: 16, child: BrightnessButton()),
         ],
       ),
@@ -69,40 +68,49 @@ class PlayButtons extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
-
     return Column(
+      spacing: 20,
       children: [
         CtaButton(
           onPressed: () {
-            // TODO: Set AI active state to false
-            // ref.read(gameProvider.notifier).setAiActive(false);
-
-            // TODO: Navigate to your game screen
-            // Navigator.of(context).push(MaterialPageRoute(builder: (_) => const GamePage()));
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Navigating to Player vs Player...'),
-              ),
-            );
+            ref.read(gameProvider.notifier).deactivateAI();
+            context.push('/home/game');
           },
           icon: Icons.people_outline,
           label: 'Play vs Friend',
         ),
-        const SizedBox(height: 20),
         CtaButton(
           onPressed: () {
-            // TODO: Set AI active state to true
-            // ref.read(gameProvider.notifier).setAiActive(true);
-
-            // TODO: Navigate to your game screen
-            // Navigator.of(context).push(MaterialPageRoute(builder: (_) => const GamePage()));
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Navigating to Player vs AI...')),
-            );
+            ref
+                .read(gameProvider.notifier)
+                .activateAI(strategy: AIStrategyEnum.easy);
+            context.push('/home/game');
           },
           icon: Icons.computer_outlined,
-          label: 'Play vs AI',
+          label: 'Play vs AI (easy 🧸)',
+        ),
+        CtaButton(
+          onPressed: () {
+            ref
+                .read(gameProvider.notifier)
+                .activateAI(strategy: AIStrategyEnum.medium);
+            context.push('/home/game');
+          },
+          icon: Icons.computer_outlined,
+          label: 'Play vs AI (medium 🤔)',
+        ),
+        CtaButton(
+          onPressed: () {
+            ref
+                .read(gameProvider.notifier)
+                .activateAI(
+                  strategy: AIStrategyEnum.hard,
+                  startPlayer: Player.O,
+                );
+            context.push('/home/game');
+          },
+          icon: Icons.computer_outlined,
+          label: 'Play vs AI (hard 🔥)',
         ),
       ],
     );
