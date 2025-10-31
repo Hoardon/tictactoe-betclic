@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:tictactoebetclic/src/domain/ai/ai_strategy_provider.dart';
 import 'package:tictactoebetclic/src/domain/entities/player.dart';
-import 'package:tictactoebetclic/src/domain/states/ai_game_state.dart';
 import 'package:tictactoebetclic/src/domain/states/game_notifier.dart';
 import 'package:tictactoebetclic/src/presentation/widgets/animated_gradient_background_widget.dart';
 import 'package:tictactoebetclic/src/presentation/widgets/board_widget.dart';

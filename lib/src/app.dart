@@ -4,7 +4,6 @@ import 'package:tictactoebetclic/src/core/rooting/routing_provider.dart';
 import 'package:tictactoebetclic/src/core/theme/dark_theme.dart';
 import 'package:tictactoebetclic/src/core/theme/light_theme.dart';
 import 'package:tictactoebetclic/src/core/theme/theme_controller.dart';
-import 'package:tictactoebetclic/src/presentation/pages/home_page.dart';
 
 class TicTacToeApp extends ConsumerWidget {
   const TicTacToeApp({super.key});
