@@ -21,5 +21,7 @@ abstract class GameState with _$GameState {
     @Default(Player.X) Player currentPlayer,
     @Default(false) bool isGameOver,
     Player? winner,
+    @Default(false) bool aiActive,
+    @Default(Player.O) Player aiPlayer,
   }) = _GameState;
 }
