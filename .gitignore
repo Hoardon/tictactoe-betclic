@@ -251,6 +251,7 @@ google-services.json
 *.g.dart
 **/gen/
 /.flutter-plugins-dependencies
+**/failures/
 
 # Ignore dotenv env file config
 *.env
