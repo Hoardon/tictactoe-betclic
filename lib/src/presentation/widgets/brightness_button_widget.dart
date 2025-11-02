@@ -8,10 +8,11 @@ class BrightnessButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeControllerProvider);
+    final animationDuration = const Duration(milliseconds: 1000);
     return MaterialButton(
       onPressed: () => ref.read(themeControllerProvider.notifier).toggleTheme(),
       child: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 300),
+        duration: animationDuration,
         transitionBuilder: (Widget child, Animation<double> animation) {
           return FadeTransition(
             opacity: animation,
@@ -21,7 +22,7 @@ class BrightnessButton extends ConsumerWidget {
         child: themeMode == ThemeMode.light
             ? const Icon(Icons.brightness_2_outlined, key: ValueKey<bool>(true))
             : const Icon(
-                Icons.brightness_1_outlined,
+                Icons.brightness_7_outlined,
                 key: ValueKey<bool>(false),
               ),
       ),

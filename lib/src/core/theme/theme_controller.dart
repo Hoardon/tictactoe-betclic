@@ -6,7 +6,7 @@ part 'theme_controller.g.dart';
 
 @riverpod
 class ThemeController extends _$ThemeController {
-  final Duration _debounceDuration = const Duration(milliseconds: 500);
+  final Duration _debounceDuration = const Duration(milliseconds: 1100);
   DateTime _lastToggleTimestamp = DateTime.now();
 
   @override

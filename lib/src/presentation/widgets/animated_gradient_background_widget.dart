@@ -6,7 +6,7 @@ import 'package:tictactoebetclic/src/core/theme/theme_controller.dart';
 class AnimatedGradientBackground extends HookConsumerWidget {
   const AnimatedGradientBackground({super.key});
 
-  static final List<List<Color>> _lightColorSets = const [
+  static const List<List<Color>> _lightColorSets = [
     [Color(0xFF89F7FE), Color(0xFF66A6FF)], // Aqua → Sky Blue
     [Color(0xFFFFC3A0), Color(0xFFFFAFBD)], // Peach → Pink
     [Color(0xFFB7F8DB), Color(0xFF50A7C2)], // Mint → Teal Blue
@@ -14,7 +14,7 @@ class AnimatedGradientBackground extends HookConsumerWidget {
     [Color(0xFFA1FFCE), Color(0xFFFAD0C4)], // Mint Green → Pale Peach
   ];
 
-  static final List<List<Color>> _darkColorSets = const [
+  static const List<List<Color>> _darkColorSets = [
     [Color(0xFF373B44), Color(0xFF4286F4)], // Charcoal → Blue Glow
     [Color(0xFF0F2027), Color(0xFF203A43), Color(0xFF2C5364)], // Deep Teal layers
     [Color(0xFF1F1C2C), Color(0xFF928DAB)], // Deep Purple → Misty Gray
@@ -25,7 +25,7 @@ class AnimatedGradientBackground extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = useAnimationController(
-      duration: const Duration(seconds: 30),
+      duration: const Duration(seconds: 10),
     );
 
     useEffect(() {

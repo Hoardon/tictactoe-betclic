@@ -17,14 +17,16 @@ class HomePage extends StatelessWidget {
       body: Stack(
         children: [
           AnimatedGradientBackground(),
-          Center(
-            child: SingleChildScrollView(
-              padding: EdgeInsets.all(24.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [GameTitle(), SizedBox(height: 60), PlayButtons()],
-              ),
+          Padding(
+            padding: EdgeInsets.all(24.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                GameTitle(),
+                SizedBox(height: 60),
+                PlayButtons(),
+              ],
             ),
           ),
           Positioned(top: 40, right: 16, child: BrightnessButton()),
