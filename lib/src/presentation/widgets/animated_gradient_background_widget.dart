@@ -6,16 +6,20 @@ import 'package:tictactoebetclic/src/core/theme/theme_controller.dart';
 class AnimatedGradientBackground extends HookConsumerWidget {
   const AnimatedGradientBackground({super.key});
 
-  static final List<List<Color>> _lightColorSets = [
-    [Colors.blue.shade200, Colors.purple.shade200],
-    [Colors.cyan.shade200, Colors.pink.shade200],
-    [Colors.green.shade200, Colors.yellow.shade200],
+  static final List<List<Color>> _lightColorSets = const [
+    [Color(0xFF89F7FE), Color(0xFF66A6FF)], // Aqua → Sky Blue
+    [Color(0xFFFFC3A0), Color(0xFFFFAFBD)], // Peach → Pink
+    [Color(0xFFB7F8DB), Color(0xFF50A7C2)], // Mint → Teal Blue
+    [Color(0xFFFFE29F), Color(0xFFFF719A)], // Soft Yellow → Pink Coral
+    [Color(0xFFA1FFCE), Color(0xFFFAD0C4)], // Mint Green → Pale Peach
   ];
 
-  static final List<List<Color>> _darkColorSets = [
-    [Colors.indigo.shade900, Colors.purple.shade900],
-    [Colors.teal.shade900, Colors.blueGrey.shade900],
-    [Colors.deepPurple.shade900, Colors.pink.shade900],
+  static final List<List<Color>> _darkColorSets = const [
+    [Color(0xFF373B44), Color(0xFF4286F4)], // Charcoal → Blue Glow
+    [Color(0xFF0F2027), Color(0xFF203A43), Color(0xFF2C5364)], // Deep Teal layers
+    [Color(0xFF1F1C2C), Color(0xFF928DAB)], // Deep Purple → Misty Gray
+    [Color(0xFF41295A), Color(0xFF2F0743)], // Violet → Plum
+    [Color(0xFF000428), Color(0xFF004E92)], // Midnight → Royal Blue
   ];
 
   @override
