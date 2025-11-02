@@ -42,32 +42,34 @@ class CtaButton extends HookConsumerWidget {
 
     if (!isEnabled) {
       gradientColors = switch (style) {
-        CtaStyle.primary => [Colors.grey.shade500, Colors.grey.shade600],
-        CtaStyle.secondary => [Colors.grey.shade300, Colors.grey.shade400],
+        CtaStyle.primary => [Colors.grey.shade600, Colors.grey.shade700],
+        CtaStyle.secondary => [Colors.grey.shade400, Colors.grey.shade500],
       };
       shadowColor = null;
       textColor = Colors.white70;
+    } else {
+      gradientColors = switch (style) {
+        CtaStyle.primary => [colorScheme.primary, colorScheme.secondary],
+        CtaStyle.secondary =>
+        [
+          colorScheme.primary.withValues(alpha: 0.4),
+          colorScheme.secondary.withValues(alpha: 0.4),
+        ],
+      };
+      shadowColor = colorScheme.primary.withValues(alpha: isDarkMode ? 0.4 : 0.3);
+      textColor = colorScheme.onPrimary;
+
+      border = switch (style) {
+        CtaStyle.primary => null,
+        CtaStyle.secondary => Border.all(
+          color: Theme.of(context).colorScheme.primary,
+          width: 2,
+        ),
+      };
     }
 
-    gradientColors = switch (style) {
-      CtaStyle.primary => [colorScheme.primary, colorScheme.secondary],
-      CtaStyle.secondary => [
-        colorScheme.primary.withValues(alpha: 0.4),
-        colorScheme.secondary.withValues(alpha: 0.4),
-      ],
-    };
-    shadowColor = colorScheme.primary.withValues(alpha: isDarkMode ? 0.4 : 0.3);
-    textColor = colorScheme.onPrimary;
 
-    border = switch (style) {
-      CtaStyle.primary => null,
-      CtaStyle.secondary => Border.all(
-        color: Theme.of(context).colorScheme.primary,
-        width: 2,
-      ),
-    };
-
-    return _CtaWidget(
+    return CtaWidget(
       onPressed: onPressed,
       icon: icon,
       label: label,
@@ -79,8 +81,9 @@ class CtaButton extends HookConsumerWidget {
   }
 }
 
-class _CtaWidget extends StatelessWidget {
-  const _CtaWidget({
+class CtaWidget extends StatelessWidget {
+  const CtaWidget({
+    super.key,
     required this.onPressed,
     required this.icon,
     required this.label,

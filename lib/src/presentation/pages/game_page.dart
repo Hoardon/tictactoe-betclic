@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tictactoebetclic/src/domain/entities/player.dart';
 import 'package:tictactoebetclic/src/domain/states/game_notifier.dart';
@@ -57,10 +56,11 @@ class GamePage extends ConsumerWidget {
                           icon: Icons.refresh,
                           label: 'Play again',
                         ),
-                        CtaButton.secondary(
-                          onPressed: () {
-                            if (context.canPop()) context.pop();
-                          },
+                        const CtaButton.secondary(
+                          onPressed: null,
+                          // onPressed: () {
+                          //   if (context.canPop()) context.pop();
+                          // },
                           icon: Icons.arrow_back,
                           label: 'Back to levels',
                         ),
