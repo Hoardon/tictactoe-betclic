@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:tictactoebetclic/src/domain/ai/ai_strategy_provider.dart';
-import 'package:tictactoebetclic/src/domain/entities/player.dart';
 import 'package:tictactoebetclic/src/domain/states/game_notifier.dart';
 import 'package:tictactoebetclic/src/presentation/widgets/animated_gradient_background_widget.dart';
 import 'package:tictactoebetclic/src/presentation/widgets/brightness_button_widget.dart';
@@ -25,7 +23,7 @@ class HomePage extends StatelessWidget {
               children: [
                 GameTitle(),
                 SizedBox(height: 60),
-                PlayButtons(),
+                PlayButton(),
               ],
             ),
           ),
@@ -65,56 +63,19 @@ class GameTitle extends StatelessWidget {
   }
 }
 
-class PlayButtons extends ConsumerWidget {
-  const PlayButtons({super.key});
+class PlayButton extends ConsumerWidget {
+  const PlayButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Column(
-      spacing: 20,
-      children: [
-        CtaButton(
-          onPressed: () {
-            ref.read(gameProvider.notifier).deactivateAI();
-            context.push('/home/game');
-          },
-          icon: Icons.people_outline,
-          label: 'Play vs Friend',
-        ),
-        CtaButton(
-          onPressed: () {
-            ref
-                .read(gameProvider.notifier)
-                .activateAI(strategy: AIStrategyEnum.easy);
-            context.push('/home/game');
-          },
-          icon: Icons.computer_outlined,
-          label: 'Play vs AI (easy 🧸)',
-        ),
-        CtaButton(
-          onPressed: () {
-            ref
-                .read(gameProvider.notifier)
-                .activateAI(strategy: AIStrategyEnum.medium);
-            context.push('/home/game');
-          },
-          icon: Icons.computer_outlined,
-          label: 'Play vs AI (medium 🤔)',
-        ),
-        CtaButton(
-          onPressed: () {
-            ref
-                .read(gameProvider.notifier)
-                .activateAI(
-                  strategy: AIStrategyEnum.hard,
-                  startPlayer: Player.O,
-                );
-            context.push('/home/game');
-          },
-          icon: Icons.computer_outlined,
-          label: 'Play vs AI (hard 🔥)',
-        ),
-      ],
-    );
+    return
+      CtaButton(
+        onPressed: () {
+          ref.read(gameProvider.notifier).deactivateAI();
+          context.push('/home/levels');
+        },
+        icon: Icons.local_play_outlined,
+        label: 'Start a game',
+      );
   }
 }
