@@ -25,7 +25,7 @@ class AnimatedGradientBackground extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = useAnimationController(
-      duration: const Duration(seconds: 10),
+      duration: const Duration(seconds: 60),
     );
 
     useEffect(() {

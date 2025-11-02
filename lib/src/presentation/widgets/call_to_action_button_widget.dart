@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tictactoebetclic/src/core/theme/theme_controller.dart';
 
+enum CtaStyle { primary, secondary }
+
 /// A stylish, theme-aware Call-to-Action button that is optimized for Riverpod.
 /// It directly watches a theme provider to rebuild and adapt its colors
 /// without requiring the parent widget to rebuild.
@@ -11,11 +13,19 @@ class CtaButton extends HookConsumerWidget {
     required this.icon,
     required this.label,
     super.key,
-  });
+  }) : style = CtaStyle.primary;
+
+  const CtaButton.secondary({
+    required this.onPressed,
+    required this.icon,
+    required this.label,
+    super.key,
+  }) : style = CtaStyle.secondary;
 
   final VoidCallback? onPressed;
   final IconData icon;
   final String label;
+  final CtaStyle style;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,34 +38,70 @@ class CtaButton extends HookConsumerWidget {
     List<Color> gradientColors;
     Color? shadowColor;
     Color textColor;
+    Border? border;
 
     if (!isEnabled) {
-      // -- Disabled State Colors --
-      gradientColors = [
-        Colors.grey.shade500,
-        Colors.grey.shade600,
-      ];
+      gradientColors = switch (style) {
+        CtaStyle.primary => [Colors.grey.shade500, Colors.grey.shade600],
+        CtaStyle.secondary => [Colors.grey.shade300, Colors.grey.shade400],
+      };
       shadowColor = null;
       textColor = Colors.white70;
-    } else if (isDarkMode) {
-      // -- Dark Theme Colors -- (Defined in your darkTheme's ColorScheme)
-      gradientColors = [
-        colorScheme.primary,   // e.g., A vibrant purple
-        colorScheme.secondary, // e.g., A complementary pink or teal
-      ];
-      shadowColor = colorScheme.primary.withOpacity(0.4);
-      textColor = colorScheme.onPrimary; // Usually white or a very light color
-    } else {
-      // -- Light Theme Colors -- (Defined in your lightTheme's ColorScheme)
-      gradientColors = [
-        colorScheme.primary,   // e.g., A bright blue
-        colorScheme.secondary, // e.g., A lighter cyan or green
-      ];
-      shadowColor = colorScheme.primary.withOpacity(0.3);
-      textColor = colorScheme.onPrimary; // A color guaranteed to be visible on the primary color
     }
 
-    // The rest of the build method is the same, using the dynamic colors.
+    gradientColors = switch (style) {
+      CtaStyle.primary => [colorScheme.primary, colorScheme.secondary],
+      CtaStyle.secondary => [
+        colorScheme.primary.withValues(alpha: 0.4),
+        colorScheme.secondary.withValues(alpha: 0.4),
+      ],
+    };
+    shadowColor = colorScheme.primary.withValues(alpha: isDarkMode ? 0.4 : 0.3);
+    textColor = colorScheme.onPrimary;
+
+    border = switch (style) {
+      CtaStyle.primary => null,
+      CtaStyle.secondary => Border.all(
+        color: Theme.of(context).colorScheme.primary,
+        width: 2,
+      ),
+    };
+
+    return _CtaWidget(
+      onPressed: onPressed,
+      icon: icon,
+      label: label,
+      gradientColors: gradientColors,
+      shadowColor: shadowColor,
+      textColor: textColor,
+      border: border,
+    );
+  }
+}
+
+class _CtaWidget extends StatelessWidget {
+  const _CtaWidget({
+    required this.onPressed,
+    required this.icon,
+    required this.label,
+    required this.gradientColors,
+    required this.shadowColor,
+    required this.textColor,
+    required this.border,
+  });
+
+  final VoidCallback? onPressed;
+  final IconData icon;
+  final String label;
+  final List<Color> gradientColors;
+  final Color? shadowColor;
+  final Color? textColor;
+  final Border? border;
+
+  @override
+  Widget build(BuildContext context) {
+    final Color? shadow = shadowColor;
+
     return Container(
       width: double.infinity,
       height: 64,
@@ -65,14 +111,15 @@ class CtaButton extends HookConsumerWidget {
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
-        boxShadow: shadowColor != null
+        border: border,
+        boxShadow: shadow != null
             ? [
-          BoxShadow(
-            color: shadowColor,
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ]
+                BoxShadow(
+                  color: shadow,
+                  blurRadius: 12,
+                  offset: const Offset(0, 4),
+                ),
+              ]
             : null,
         borderRadius: BorderRadius.circular(32),
       ),
@@ -87,11 +134,7 @@ class CtaButton extends HookConsumerWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    icon,
-                    size: 28,
-                    color: textColor,
-                  ),
+                  Icon(icon, size: 28, color: textColor),
                   const SizedBox(width: 12),
                   Text(
                     label,
