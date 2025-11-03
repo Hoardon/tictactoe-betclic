@@ -71,8 +71,7 @@ void main() {
 
       expect(updatedState.aiGame, isTrue);
       expect(updatedState.aiPlayer, equals(Player.X));
-      expect(updatedState.aiPlayer, equals(Player.O));
-
+      expect(updatedState.userPlayer, equals(Player.O));
 
       expect(initialState.board, isNot(equals(newBoard)));
       expect(initialState.thisTurnPlayer, equals(Player.X));

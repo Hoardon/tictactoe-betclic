@@ -106,8 +106,6 @@ void main() {
 
   group('resetGame', () {
     test('should reset the board but keep AI settings', () {
-      // ARRANGE
-      // Activer l'IA et faire un mouvement
       container
           .read(gameProvider.notifier)
           .activateAI(strategy: AIStrategyEnum.easy, forceUserPlayer: Player.O);
@@ -120,7 +118,6 @@ void main() {
       );
       container.read(gameProvider.notifier).makeMove(0);
 
-      // ACT
       container.read(gameProvider.notifier).resetGame();
       final stateAfterReset = container.read(gameProvider);
 

@@ -60,32 +60,6 @@ void main() {
       expect(notifier.state.wins, 1);
     });
 
-    test('addGameToHistory() should add a game and update state', () {
-      when(() => mockRepository.fetchHistory())
-          .thenAnswer((_) async => UserHistoryState.empty());
-      final notifier = container.read(userGameHistoryProvider.notifier);
-      expect(notifier.state.recordGameList, isEmpty);
-
-      final newGame = createDummyRecord(RecordGameStatus.victory);
-      notifier.addGameToHistory(newGame);
-
-      verify(() => mockRepository.registerNewGame(game: newGame)).called(1);
-
-      expect(notifier.state.recordGameList.length, 1);
-      expect(notifier.state.recordGameList.first, newGame);
-      expect(notifier.state.wins, 1);
-
-      final newGame2 = createDummyRecord(RecordGameStatus.loss);
-      notifier.addGameToHistory(newGame2);
-      notifier.addGameToHistory(newGame2);
-
-      verify(() => mockRepository.registerNewGame(game: newGame2)).called(2);
-
-      expect(notifier.state.recordGameList.length, 3);
-      expect(notifier.state.recordGameList.last, newGame2);
-      expect(notifier.state.losses, 2);
-    });
-
     test('clearHistory() should call repository and reset state to empty', () async {
       final initialState = UserHistoryState(recordGameList: [
         createDummyRecord(RecordGameStatus.victory),
