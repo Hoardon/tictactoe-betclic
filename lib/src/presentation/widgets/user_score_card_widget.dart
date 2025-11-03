@@ -22,32 +22,36 @@ class UserScoreCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Column(
           children: [
-            Expanded(
-              child: _ScoreColumn(
-                label: 'Wins',
-                value: wins,
-                icon: Icons.emoji_events, // Trophy icon
-                iconColor: Colors.amber.shade700,
-              ),
-            ),
-            Expanded(
-              child: _ScoreColumn(
-                label: 'Losses',
-                value: losses,
-                icon: Icons.thumb_down, // Thumbs down icon
-                iconColor: Colors.red.shade600,
-              ),
-            ),
-            Expanded(
-              child: _ScoreColumn(
-                label: 'Draws',
-                value: draws,
-                icon: Icons.handshake, // Handshake icon for draws
-                iconColor: Colors.blue.shade600,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: _ScoreColumn(
+                    label: 'Wins',
+                    value: wins,
+                    icon: Icons.emoji_events, // Trophy icon
+                    iconColor: Colors.amber.shade700,
+                  ),
+                ),
+                Expanded(
+                  child: _ScoreColumn(
+                    label: 'Losses',
+                    value: losses,
+                    icon: Icons.thumb_down, // Thumbs down icon
+                    iconColor: Colors.red.shade600,
+                  ),
+                ),
+                Expanded(
+                  child: _ScoreColumn(
+                    label: 'Draws',
+                    value: draws,
+                    icon: Icons.handshake, // Handshake icon for draws
+                    iconColor: Colors.blue.shade600,
+                  ),
+                ),
+              ],
             ),
           ],
         ),

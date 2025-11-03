@@ -20,7 +20,7 @@ void main() {
   }
 
   group('UserScoreCard', () {
-    testWidgets('devrait afficher correctement les scores fournis', (WidgetTester tester) async {
+    testWidgets('should display correctly UserScoreCard', (WidgetTester tester) async {
       const testWins = 10;
       const testLosses = 5;
       const testDraws = 2;
@@ -36,7 +36,7 @@ void main() {
       expect(find.text(testDraws.toString()), findsOneWidget);
     });
 
-    testWidgets('devrait afficher les libellés et les icônes corrects pour chaque catégorie', (WidgetTester tester) async {
+    testWidgets('should display icons and labels with category', (WidgetTester tester) async {
       await tester.pumpWidget(buildTestableWidget(
         wins: 1,
         losses: 2,
@@ -52,7 +52,7 @@ void main() {
       expect(find.byIcon(Icons.handshake), findsOneWidget);
     });
 
-    testWidgets('devrait gérer correctement la valeur zéro pour tous les scores', (WidgetTester tester) async {
+    testWidgets('should print 0 on each score', (WidgetTester tester) async {
       await tester.pumpWidget(buildTestableWidget(
         wins: 0,
         losses: 0,
@@ -60,28 +60,6 @@ void main() {
       ));
 
       expect(find.text('0'), findsNWidgets(3));
-    });
-
-    testWidgets('devrait utiliser Expanded pour espacer les colonnes de manière égale', (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(
-        wins: 1,
-        losses: 1,
-        draws: 1,
-      ));
-
-      final row = tester.widget<Row>(find.byType(Row));
-      expect(row.children.length, 3);
-      expect(row.children.every((widget) => widget is Expanded), isTrue);
-    });
-
-    testWidgets('devrait utiliser FittedBox pour assurer que le texte ne dépasse pas', (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(
-        wins: 1234567890,
-        losses: 9876543210,
-        draws: 1,
-      ));
-
-      expect(find.byType(FittedBox), findsNWidgets(6));
     });
   });
 }

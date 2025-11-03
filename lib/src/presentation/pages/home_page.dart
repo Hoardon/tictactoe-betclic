@@ -6,6 +6,7 @@ import 'package:tictactoebetclic/src/domain/states/user_game_history_notifier.da
 import 'package:tictactoebetclic/src/presentation/widgets/brightness_button_widget.dart';
 import 'package:tictactoebetclic/src/presentation/widgets/call_to_action_button_widget.dart';
 import 'package:tictactoebetclic/src/presentation/widgets/scaffold_animated_gradient.dart';
+import 'package:tictactoebetclic/src/presentation/widgets/user_history_card_widget.dart';
 import 'package:tictactoebetclic/src/presentation/widgets/user_score_card_widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -26,9 +27,9 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             GameTitle(),
-            SizedBox(height: 60),
-            HistoryView(),
-            SizedBox(height: 60),
+            SizedBox(height: 24),
+            Expanded(child: HistoryView()),
+            SizedBox(height: 24),
             PlayButton(),
           ],
         ),
@@ -74,14 +75,32 @@ class HistoryView extends ConsumerWidget {
     final userHistory = ref.watch(userGameHistoryProvider);
 
     return Column(
-      spacing: 20,
+      spacing: 24,
       children: [
         UserScoreCard(
           wins: userHistory.wins,
           losses: userHistory.losses,
           draws: userHistory.draws,
         ),
-
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            decoration: BoxDecoration(
+              color: Theme.of(
+                context,
+              ).colorScheme.surface.withValues(alpha: 0.3),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: ListView.separated(
+              padding: EdgeInsets.zero,
+              itemCount: userHistory.recordGameList.length,
+              itemBuilder: (context, index) => UserHistoryCard(
+                recordGame: userHistory.recordGameList[index],
+              ),
+              separatorBuilder: (context, index) => const SizedBox(height: 2),
+            ),
+          ),
+        ),
       ],
     );
   }
