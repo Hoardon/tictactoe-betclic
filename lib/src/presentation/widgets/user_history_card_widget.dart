@@ -3,19 +3,22 @@ import 'package:intl/intl.dart';
 import 'package:tictactoebetclic/src/domain/entities/record_game.dart';
 
 class UserHistoryCard extends StatelessWidget {
-  const UserHistoryCard({
-    super.key,
-    required this.recordGame,
-  });
+  const UserHistoryCard({super.key, required this.recordGame});
 
   final RecordGame recordGame;
 
-  (IconData, Color) _getIconForStatus(RecordGameStatus status, BuildContext context) {
+  (IconData, Color) _getIconForStatus(
+    RecordGameStatus status,
+    BuildContext context,
+  ) {
     return switch (status) {
       RecordGameStatus.victory => (Icons.emoji_events, Colors.amber.shade700),
-      RecordGameStatus.loss    => (Icons.thumb_down, Colors.red.shade600),
-      RecordGameStatus.draw    => (Icons.handshake, Colors.blue.shade600),
-      RecordGameStatus.unknown => (Icons.question_mark_outlined, Colors.blue.shade600),
+      RecordGameStatus.loss => (Icons.thumb_down, Colors.red.shade600),
+      RecordGameStatus.draw => (Icons.handshake, Colors.blue.shade600),
+      RecordGameStatus.unknown => (
+        Icons.question_mark_outlined,
+        Colors.blue.shade600,
+      ),
     };
   }
 
@@ -52,7 +55,9 @@ class UserHistoryCard extends StatelessWidget {
                     Text(
                       'VS: ${recordGame.opponent.label}',
                       style: textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.onSurface.withOpacity(0.7),
+                        color: theme.colorScheme.onSurface.withValues(
+                          alpha: 0.7,
+                        ),
                       ),
                     ),
                   ],
@@ -60,10 +65,13 @@ class UserHistoryCard extends StatelessWidget {
               ),
               const SizedBox(width: 16.0),
               Text(
-                DateFormat('d MMM, HH:mm', Localizations.localeOf(context).toString()).format(recordGame.datetime),
+                DateFormat(
+                  'd MMM, HH:mm',
+                  Localizations.localeOf(context).toString(),
+                ).format(recordGame.datetime),
                 style: textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.w500,
-                  color: theme.colorScheme.onSurface.withOpacity(0.8),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
                 ),
               ),
             ],

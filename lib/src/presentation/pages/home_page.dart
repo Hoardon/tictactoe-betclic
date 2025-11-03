@@ -72,6 +72,8 @@ class HistoryView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
     final userHistory = ref.watch(userGameHistoryProvider);
 
     return Column(
@@ -86,18 +88,35 @@ class HistoryView extends ConsumerWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             decoration: BoxDecoration(
-              color: Theme.of(
+              color: Theme
+                  .of(
                 context,
-              ).colorScheme.surface.withValues(alpha: 0.3),
+              )
+                  .colorScheme
+                  .surface
+                  .withValues(alpha: 0.3),
               borderRadius: BorderRadius.circular(16),
             ),
-            child: ListView.separated(
+            child: userHistory.recordGameList.isNotEmpty
+                ? ListView.separated(
               padding: EdgeInsets.zero,
               itemCount: userHistory.recordGameList.length,
-              itemBuilder: (context, index) => UserHistoryCard(
-                recordGame: userHistory.recordGameList[index],
+              itemBuilder: (context, index) =>
+                  UserHistoryCard(
+                    recordGame: userHistory.recordGameList[index],
+                  ),
+              separatorBuilder: (context, index) =>
+              const SizedBox(height: 2),
+            )
+                : Center(
+              child: Text(
+                'No party registered.\nGo play and challenge your nerves!',
+                overflow: TextOverflow.ellipsis, style: textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onSurface.withValues(
+                  alpha: 0.7,
+                ),
               ),
-              separatorBuilder: (context, index) => const SizedBox(height: 2),
+              ),
             ),
           ),
         ),
