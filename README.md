@@ -66,6 +66,33 @@ lib/
 
 ---
 
+## 🗺️ Roadmap & Future Improvements
+
+This project has a solid foundation, but there are many exciting features and improvements that could be added. Here are some ideas for the future. Pull requests are welcome for any of these features!
+
+### Gameplay Enhancements
+
+*   **[ ] Different Grid Sizes:** Implement logic to support different board sizes, such as 4x4 or 5x5, and adjust the win condition accordingly.
+*   **[ ] Online Multiplayer:**
+    *   Integrate a real-time backend (like Firebase Realtime Database or Firestore) to allow two players to compete over the internet.
+    *   Add user authentication (e.g., Firebase Auth) to manage player profiles.
+*   **[ ] Game Playback / Replays:** After a match, allow the user to replay the game move-by-move.
+
+### UI/UX & Feature Additions
+
+*   **[ ] Sound Effects:** Add subtle sound effects for placing a piece, winning, losing, or drawing the game to make the experience more engaging.
+*   **[ ] More Advanced Animations:** Implement more complex animations using Flutter's animation framework, such as a "line-through" animation when a player wins.
+*   **[ ] User Profiles & Avatars:** Allow users to create a simple profile, choose an avatar, and see their lifetime stats displayed on a dedicated profile screen.
+*   **[ ] Internationalization (i18n) & Localization (l10n):** Add support for multiple languages so users can play the game in their native tongue.
+
+### Technical & Codebase Improvements
+
+*   **[ ] CI/CD Integration:** Set up a Continuous Integration/Continuous Deployment pipeline using GitHub Actions to automatically run tests, build the app, and deploy it.
+*   **[ ] Flavoring for Environments:** Implement build flavors with [flutter_dotenv](https://pub.dev/packages/flutter_dotenv)(e.g., `dev`, `prod`) to manage different configurations, such as separate Firebase projects for development and production.
+*   **[ ] Widgetbook or Storybook:** Integrate a widget cataloging tool like [Widgetbook](https://www.widgetbook.io/) to browse and test UI components in isolation, improving development speed and documentation.
+
+
+
 ## 🚀 Getting Started
 
 ### 1️⃣ Prerequisites
