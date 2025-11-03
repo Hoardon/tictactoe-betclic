@@ -97,7 +97,7 @@ class PlayButtons extends ConsumerWidget {
                 .read(gameProvider.notifier)
                 .activateAI(
                   strategy: AIStrategyEnum.hard,
-                  startPlayer: Player.O,
+                  forceUserPlayer: Player.O,
                 );
             context.push('/home/game');
           },

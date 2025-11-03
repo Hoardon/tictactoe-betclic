@@ -18,10 +18,11 @@ abstract class GameState with _$GameState {
       Player.none,
     ])
     List<Player> board,
-    @Default(Player.X) Player currentPlayer,
+    @Default(Player.X) Player thisTurnPlayer,
     @Default(false) bool isGameOver,
     Player? winner,
-    @Default(false) bool aiActive,
+    @Default(Player.X) Player userPlayer,
+    @Default(false) bool aiGame,
     @Default(Player.O) Player aiPlayer,
   }) = _GameState;
 }

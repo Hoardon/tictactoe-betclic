@@ -1,6 +1,27 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:tictactoebetclic/src/core/utils/logger.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'storage_service.g.dart';
+
+class StorageService {
+  Future<bool> containsKey({required String key}) =>
+      SecureStorage.containsKey(key: key);
+
+  Future<String> read({required String key}) =>
+      SecureStorage.read(key: key);
+
+  Future<void> write({required String key, required String value}) =>
+      SecureStorage.write(key: key, value: value);
+
+  Future<void> delete({required String key}) =>
+      SecureStorage.delete(key: key);
+}
+
+@riverpod
+StorageService storageService(Ref ref) => StorageService();
+
 
 /// Utility class for secure key-value storage
 class SecureStorage {
@@ -21,7 +42,6 @@ class SecureStorage {
   }
 
   /// Write a value securely
-  @override
   static Future<void> write({
     required String key,
     required String value,

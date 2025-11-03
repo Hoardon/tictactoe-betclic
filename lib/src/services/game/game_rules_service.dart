@@ -14,28 +14,22 @@ class GameRules extends IGameRules {
   @override
   GameState processMove(GameState currentState, int index) {
     final updatedBoard = List<Player>.from(currentState.board)
-      ..[index] = currentState.currentPlayer;
+      ..[index] = currentState.thisTurnPlayer;
 
     final outcome = _evaluateOutcome(updatedBoard);
 
     if (outcome.isGameOver) {
-      return GameState(
+      return currentState.copyWith(
         board: updatedBoard,
-        currentPlayer: currentState.currentPlayer,
         isGameOver: true,
         winner: outcome.winner,
-        aiActive: currentState.aiActive,
-        aiPlayer: currentState.aiPlayer,
       );
     }
 
-    final nextPlayer = _togglePlayer(currentState.currentPlayer);
-
-    return GameState(
+    final nextPlayer = _togglePlayer(currentState.thisTurnPlayer);
+    return currentState.copyWith(
       board: updatedBoard,
-      currentPlayer: nextPlayer,
-      aiActive: currentState.aiActive,
-      aiPlayer: currentState.aiPlayer,
+      thisTurnPlayer: nextPlayer,
     );
   }
 
@@ -46,7 +40,6 @@ class GameRules extends IGameRules {
 
   /// Evaluates the board to determine the game's outcome.
   ({bool isGameOver, Player? winner}) _evaluateOutcome(List<Player> board) {
-    // ... this logic is perfect, no changes needed ...
     const winningPatterns = [
       [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
       [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns

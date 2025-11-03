@@ -21,7 +21,7 @@ void main() {
       // The board should have Player.X at the specified index.
       expect(newState.board[moveIndex], Player.X);
       // The current player should now be Player.O.
-      expect(newState.currentPlayer, Player.O);
+      expect(newState.thisTurnPlayer, Player.O);
       // The game should not be over.
       expect(newState.isGameOver, isFalse);
       // There should be no winner.
@@ -34,7 +34,7 @@ void main() {
         Player.O, Player.O, Player.none,
         Player.none, Player.none, Player.none,
       ];
-      final initialState = GameState(board: board, currentPlayer: Player.X);
+      final initialState = GameState(board: board, thisTurnPlayer: Player.X);
       const winningMoveIndex = 2;
 
       final newState = gameRules.processMove(initialState, winningMoveIndex);
@@ -53,7 +53,7 @@ void main() {
         Player.O, Player.O, Player.none,
         Player.none, Player.none, Player.none,
       ];
-      final initialState = GameState(board: board, currentPlayer: Player.O);
+      final initialState = GameState(board: board, thisTurnPlayer: Player.O);
       const winningMoveIndex = 5;
 
       final newState = gameRules.processMove(initialState, winningMoveIndex);
@@ -68,7 +68,7 @@ void main() {
         Player.O, Player.X, Player.X,
         Player.O, Player.none, Player.O,
       ];
-      final initialState = GameState(board: board, currentPlayer: Player.X);
+      final initialState = GameState(board: board, thisTurnPlayer: Player.X);
       const finalMoveIndex = 7;
 
       final newState = gameRules.processMove(initialState, finalMoveIndex);
@@ -87,7 +87,7 @@ void main() {
         Player.O, Player.O, Player.none,
         Player.none, Player.none, Player.none,
       ];
-      final initialState = GameState(board: board, currentPlayer: Player.X);
+      final initialState = GameState(board: board, thisTurnPlayer: Player.X);
 
       final newState = gameRules.processMove(initialState, 2);
 
@@ -95,7 +95,7 @@ void main() {
       // property should NOT be toggled to Player O because the game is over.
       expect(newState.isGameOver, isTrue);
       expect(newState.winner, Player.X);
-      expect(newState.currentPlayer, Player.X, reason: "Player should not toggle on a game-ending move.");
+      expect(newState.thisTurnPlayer, Player.X, reason: "Player should not toggle on a game-ending move.");
     });
   });
 }

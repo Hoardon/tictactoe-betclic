@@ -13,7 +13,7 @@ void main() {
         reason: 'Board should be a list of 9 Player.none',
       );
       expect(
-        gameState.currentPlayer,
+        gameState.thisTurnPlayer,
         equals(Player.X),
         reason: 'Current player should default to Player.X',
       );
@@ -29,9 +29,14 @@ void main() {
       );
 
       expect(
-        gameState.aiActive,
+        gameState.userPlayer,
+        equals(Player.X),
+        reason: 'userPlayer should default to Player.X',
+      );
+      expect(
+        gameState.aiGame,
         isFalse,
-        reason: 'aiActive should default to false',
+        reason: 'aiGame should default to false',
       );
       expect(
         gameState.aiPlayer,
@@ -51,25 +56,27 @@ void main() {
 
       final updatedState = initialState.copyWith(
         board: newBoard,
-        currentPlayer: Player.O,
+        thisTurnPlayer: Player.O,
         isGameOver: true,
         winner: Player.X,
-        aiActive: true,
+        aiGame: true,
         aiPlayer: Player.X,
+        userPlayer: Player.O,
       );
 
       expect(updatedState.board, equals(newBoard));
-      expect(updatedState.currentPlayer, equals(Player.O));
+      expect(updatedState.thisTurnPlayer, equals(Player.O));
       expect(updatedState.isGameOver, isTrue);
       expect(updatedState.winner, equals(Player.X));
 
-      expect(updatedState.aiActive, isTrue);
+      expect(updatedState.aiGame, isTrue);
       expect(updatedState.aiPlayer, equals(Player.X));
+      expect(updatedState.aiPlayer, equals(Player.O));
 
 
       expect(initialState.board, isNot(equals(newBoard)));
-      expect(initialState.currentPlayer, equals(Player.X));
-      expect(initialState.aiActive, isFalse);
+      expect(initialState.thisTurnPlayer, equals(Player.X));
+      expect(initialState.aiGame, isFalse);
     });
 
     test('copyWith should work for a single property', () {
@@ -77,25 +84,27 @@ void main() {
 
       final updatedState1 = initialState.copyWith(isGameOver: true);
       expect(updatedState1.isGameOver, isTrue);
-      expect(updatedState1.aiActive, isFalse, reason: "Other properties should be unchanged");
+      expect(updatedState1.aiGame, isFalse, reason: "Other properties should be unchanged");
 
-      final updatedState2 = initialState.copyWith(aiActive: true);
-      expect(updatedState2.aiActive, isTrue);
+      final updatedState2 = initialState.copyWith(aiGame: true);
+      expect(updatedState2.aiGame, isTrue);
       expect(updatedState2.isGameOver, isFalse, reason: "Other properties should be unchanged");
     });
 
     test('two instances with the same values should be equal', () {
       const state1 = GameState(
-        currentPlayer: Player.O,
+        thisTurnPlayer: Player.O,
         isGameOver: false,
-        aiActive: true,
+        aiGame: true,
         aiPlayer: Player.X,
+        userPlayer: Player.O,
       );
       const state2 = GameState(
-        currentPlayer: Player.O,
+        thisTurnPlayer: Player.O,
         isGameOver: false,
-        aiActive: true,
+        aiGame: true,
         aiPlayer: Player.X,
+        userPlayer: Player.O,
       );
 
       expect(state1, equals(state2));
@@ -107,8 +116,8 @@ void main() {
       const state2 = GameState(isGameOver: true);
       expect(state1, isNot(equals(state2)));
 
-      const state3 = GameState(aiActive: false);
-      const state4 = GameState(aiActive: true);
+      const state3 = GameState(aiGame: false);
+      const state4 = GameState(aiGame: true);
       expect(state3, isNot(equals(state4)));
 
       const state5 = GameState(aiPlayer: Player.O);

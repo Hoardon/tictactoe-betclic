@@ -17,6 +17,8 @@ class GamePage extends ConsumerWidget {
 
     final isOver = gameState.isGameOver;
     final winner = gameState.winner;
+    final userPlayer = gameState.userPlayer;
+    final aiGame = gameState.aiGame;
 
     return ScaffoldAnimatedGradient(
       appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
@@ -30,12 +32,15 @@ class GamePage extends ConsumerWidget {
               child: Text(
                 isOver
                     ? winner != null
-                          ? '🎉 ${winner.name} wins!'
-                          : '🤝 Draw!'
-                    : 'Turn of player ${gameState.currentPlayer.name}',
+                    ? (!aiGame || winner == userPlayer)
+                    ? '🎉 You won!'
+                    : '😭 You lost!'
+                    : '🤝 Draw!'
+                    : 'Turn of player ${gameState.thisTurnPlayer.name}'
+                ,
                 style: theme.textTheme.headlineMedium?.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: gameState.currentPlayer.color,
+                  color: gameState.thisTurnPlayer.color,
                 ),
               ),
             ),

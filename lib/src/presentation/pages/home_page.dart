@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tictactoebetclic/src/domain/states/game_notifier.dart';
+import 'package:tictactoebetclic/src/domain/states/user_game_history_notifier.dart';
 import 'package:tictactoebetclic/src/presentation/widgets/brightness_button_widget.dart';
 import 'package:tictactoebetclic/src/presentation/widgets/call_to_action_button_widget.dart';
 import 'package:tictactoebetclic/src/presentation/widgets/scaffold_animated_gradient.dart';
+import 'package:tictactoebetclic/src/presentation/widgets/user_score_card_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -22,7 +24,13 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [GameTitle(), SizedBox(height: 60), PlayButton()],
+          children: [
+            GameTitle(),
+            SizedBox(height: 60),
+            HistoryView(),
+            SizedBox(height: 60),
+            PlayButton(),
+          ],
         ),
       ),
     );
@@ -53,6 +61,27 @@ class GameTitle extends StatelessWidget {
           ),
           textAlign: TextAlign.center,
         ),
+      ],
+    );
+  }
+}
+
+class HistoryView extends ConsumerWidget {
+  const HistoryView({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userHistory = ref.watch(userGameHistoryProvider);
+
+    return Column(
+      spacing: 20,
+      children: [
+        UserScoreCard(
+          wins: userHistory.wins,
+          losses: userHistory.losses,
+          draws: userHistory.draws,
+        ),
+
       ],
     );
   }
