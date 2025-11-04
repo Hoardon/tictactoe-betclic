@@ -10,11 +10,10 @@ A modern and elegant **Tic Tac Toe** game built with **Flutter**, using **Riverp
 
 ## ✨ Features
 
-- 🎨 **Beautiful animated UI** with smooth gradients and shadows
+- 🎨 **Beautiful animated UI**
 - 🧠 **Reactive state management** using Riverpod
 - ⚡ **Fast and responsive gameplay**
-- 🧩 **Draw, win and reset logic** handled automatically
-- 🧰 **Modular architecture** with entities, state notifiers, and widgets
+- 🧰 **Modular architecture**
 - ☁️ **Firebase Crashlytics** integration for error tracking
 - 🔒 **Secure local storage** with `flutter_secure_storage`
 
